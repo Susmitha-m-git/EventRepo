@@ -1,0 +1,6 @@
+com/examly/springapp/service/EventService.class
+com/examly/springapp/configuration/CORSConfig.class
+com/examly/springapp/SpringappApplication.class
+com/examly/springapp/repository/EventRepository.class
+com/examly/springapp/model/Event.class
+com/examly/springapp/controller/EventController.class
