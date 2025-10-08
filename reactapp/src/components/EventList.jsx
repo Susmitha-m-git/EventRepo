@@ -1,55 +1,76 @@
 import React, { useState, useEffect } from 'react';
+import EventCard from './EventCard';
 import { getEvents, rsvpToEvent } from '../api';
 
-const EventList = () => {
-  const [events, setEvents] = useState([]);
+const EventList = ({ events = [], onEventsUpdated = () => {} }) => {
+  const [localEvents, setLocalEvents] = useState(events);
 
   useEffect(() => {
-    fetchEvents();
-  }, []);
+    if (events.length === 0) {
+      loadEvents();
+    } else {
+      setLocalEvents(events);
+    }
+  }, [events]);
 
-  const fetchEvents = async () => {
+  const loadEvents = async () => {
     try {
       const response = await getEvents();
-      setEvents(response.data);
+      setLocalEvents(response.data || []);
     } catch (error) {
-      console.error('Error fetching events:', error);
+      console.error('Error loading events:', error);
+    }
+  };
+  const handleRSVP = async (eventId, attendeeName) => {
+    try {
+      await rsvpToEvent(eventId, attendeeName);
+      onEventsUpdated();
+    } catch (error) {
+      alert('Failed to RSVP. Please try again.');
     }
   };
 
-  const handleRSVP = async (eventId) => {
-    const attendee = prompt('Enter your name:');
-    if (attendee) {
-      try {
-        await rsvpToEvent(eventId, attendee);
-        fetchEvents();
-      } catch (error) {
-        console.error('Error RSVPing to event:', error);
-      }
-    }
-  };
+  const sortedEvents = [...(localEvents || [])].sort((a, b) => 
+    new Date(a.dateTime) - new Date(b.dateTime)
+  );
 
   return (
-    <div>
-      <h2>Events</h2>
-      {events.length === 0 ? (
-        <p>No events available</p>
+    <div style={styles.eventList}>
+      <h2 style={styles.eventListTitle}>Upcoming Events</h2>
+      {sortedEvents.length === 0 ? (
+        <p style={styles.noEvents}>No events scheduled yet.</p>
       ) : (
-        events.map(event => (
-          <div key={event.id} style={{ border: '1px solid #ccc', margin: '10px', padding: '10px' }}>
-            <h3>{event.title}</h3>
-            <p>{event.description}</p>
-            <p>Organizer: {event.organizerName}</p>
-            <p>Date: {new Date(event.dateTime).toLocaleString()}</p>
-            <p>Attendees: {event.attendees ? event.attendees.length : 0}</p>
-            <a href={event.eventLink} target="_blank" rel="noopener noreferrer">Join Event</a>
-            <br />
-            <button onClick={() => handleRSVP(event.id)}>RSVP</button>
-          </div>
+        sortedEvents.map(event => (
+          <EventCard
+            key={event.id}
+            event={event}
+            onRSVP={handleRSVP}
+          />
         ))
       )}
     </div>
   );
+};
+
+const styles = {
+  eventList: {
+    margin: '20px 0',
+  },
+  eventListTitle: {
+    color: '#333',
+    marginBottom: '20px',
+    textAlign: 'center',
+    fontSize: '1.5em',
+  },
+  noEvents: {
+    textAlign: 'center',
+    color: '#666',
+    fontStyle: 'italic',
+    padding: '40px',
+    background: 'white',
+    borderRadius: '10px',
+    boxShadow: '0 2px 10px rgba(0, 0, 0, 0.1)',
+  }
 };
 
 export default EventList;

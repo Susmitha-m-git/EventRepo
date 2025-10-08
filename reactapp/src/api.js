@@ -1,15 +1,63 @@
-import axios from 'axios';
+const API_BASE_URL = 'https://8080-abeddaaefbfebadcadedeffceaaecaa.premiumproject.examly.io/api';
 
-const API_BASE_URL = 'http://localhost:8080/api';
+const createHeaders = () => ({
+  'Content-Type': 'application/json'
+});
 
-export const getEvents = () => {
-  return axios.get(`${API_BASE_URL}/events`);
+export const getEvents = async () => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/events`, {
+      headers: createHeaders()
+    });
+    if (!response.ok) {
+      const errorData = await response.text();
+      throw new Error(`Failed to fetch events: ${response.status} ${errorData}`);
+    }
+    const data = await response.json();
+    return { data };
+  } catch (error) {
+    console.error('Error fetching events:', error);
+    throw new Error(`Network error: ${error.message}`);
+  }
 };
 
-export const createEvent = (event) => {
-  return axios.post(`${API_BASE_URL}/events`, event);
+export const createEvent = async (event) => {
+  if (!event || !event.title) {
+    throw new Error('Invalid event data');
+  }
+  try {
+    const response = await fetch(`${API_BASE_URL}/events`, {
+      method: 'POST',
+      headers: createHeaders(),
+      body: JSON.stringify(event),
+    });
+    if (!response.ok) {
+      const errorData = await response.text();
+      throw new Error(`Failed to create event: ${response.status} ${errorData}`);
+    }
+    return await response.json();
+  } catch (error) {
+    console.error('Error creating event:', error);
+    throw new Error(`Network error: ${error.message}`);
+  }
 };
 
-export const rsvpToEvent = (eventId, attendee) => {
-  return axios.post(`${API_BASE_URL}/events/${eventId}/rsvp?attendee=${attendee}`);
+export const rsvpToEvent = async (eventId, attendeeName) => {
+  if (!eventId || !attendeeName?.trim()) {
+    throw new Error('Invalid RSVP data');
+  }
+  try {
+    const response = await fetch(`${API_BASE_URL}/events/${eventId}/rsvp?attendee=${encodeURIComponent(attendeeName.trim())}`, {
+      method: 'POST',
+      headers: createHeaders()
+    });
+    if (!response.ok) {
+      const errorData = await response.text();
+      throw new Error(`Failed to RSVP: ${response.status} ${errorData}`);
+    }
+    return await response.json();
+  } catch (error) {
+    console.error('Error RSVPing to event:', error);
+    throw new Error(`Network error: ${error.message}`);
+  }
 };
