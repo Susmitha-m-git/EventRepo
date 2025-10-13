@@ -55,6 +55,7 @@ const EventForm = ({ onEventCreated }) => {
           />
         </div>
 
+       
         <div style={styles.formGroup}>
           <label htmlFor="description" style={styles.label}>Description</label>
           <textarea
@@ -146,6 +147,7 @@ const styles = {
     marginBottom: '5px',
     color: '#333',
   },
+ 
   input: {
     padding: '12px',
     border: '2px solid #e1e5e9',

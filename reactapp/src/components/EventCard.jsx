@@ -66,6 +66,7 @@ const EventCard = ({ event, onRSVP }) => {
   );
 };
 
+
 const styles = {
   eventCard: {
     background: '#ffffff',

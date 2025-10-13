@@ -5,7 +5,7 @@ const Footer = () => {
     <footer style={styles.footer}>
       <div style={styles.footerContent}>
         <p style={styles.footerText}>
-          &copy; 2024 Virtual Event Hosting Platform. All rights reserved.
+          &copy; 2024 Event Platform. All rights reserved.
         </p>
       </div>
     </footer>

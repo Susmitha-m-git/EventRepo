@@ -1,5 +1,12 @@
 import React from 'react';
 
+const styles = {
+  home: {},
+  heroSection: {},
+  heroTitle: {},
+  heroSubtitle: {}
+};
+
 const Home = () => {
   return (
     <div style={styles.home}>
@@ -11,29 +18,6 @@ const Home = () => {
       </div>
     </div>
   );
-};
-
-const styles = {
-  home: {
-    width: '100%',
-  },
-  heroSection: {
-    textAlign: 'center',
-    color: 'white',
-    marginBottom: '40px',
-    padding: '40px 0',
-  },
-  heroTitle: {
-    fontSize: '3em',
-    marginBottom: '15px',
-    textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)',
-    fontWeight: 'bold',
-  },
-  heroSubtitle: {
-    fontSize: '1.2em',
-    opacity: '0.9',
-    margin: '0',
-  }
 };
 
 export default Home;

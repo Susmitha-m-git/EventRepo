@@ -14,7 +14,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/events")
-@CrossOrigin(originPatterns = "*", allowedHeaders = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE, RequestMethod.OPTIONS})
+
 public class EventController {
 
     @Autowired
@@ -30,6 +30,8 @@ public class EventController {
         }
     }
 
+
+    
     @PostMapping
     public ResponseEntity<Event> createEvent(@RequestBody Event event) {
         try {
