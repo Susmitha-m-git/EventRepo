@@ -61,3 +61,10 @@ export const rsvpToEvent = async (eventId, attendeeName) => {
     throw new Error(`Network error: ${error.message}`);
   }
 };
+
+export const deleteEvent = async (eventId) => {
+  const response = await fetch(`${API_BASE_URL}/events/${eventId}`, {
+    method: 'DELETE',
+  });
+  return response.json();
+};

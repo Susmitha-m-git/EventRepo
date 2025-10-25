@@ -1,6 +1,10 @@
 /home/coder/project/workspace/springapp/src/main/java/com/examly/springapp/service/EventService.java
 /home/coder/project/workspace/springapp/src/main/java/com/examly/springapp/controller/EventController.java
 /home/coder/project/workspace/springapp/src/main/java/com/examly/springapp/model/Event.java
+/home/coder/project/workspace/springapp/src/main/java/com/examly/springapp/controller/AuthController.java
 /home/coder/project/workspace/springapp/src/main/java/com/examly/springapp/configuration/CORSConfig.java
 /home/coder/project/workspace/springapp/src/main/java/com/examly/springapp/repository/EventRepository.java
+/home/coder/project/workspace/springapp/src/main/java/com/examly/springapp/model/User.java
 /home/coder/project/workspace/springapp/src/main/java/com/examly/springapp/SpringappApplication.java
+/home/coder/project/workspace/springapp/src/main/java/com/examly/springapp/configuration/SecurityConfig.java
+/home/coder/project/workspace/springapp/src/main/java/com/examly/springapp/repository/UserRepository.java

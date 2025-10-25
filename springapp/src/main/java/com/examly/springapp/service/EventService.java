@@ -39,4 +39,8 @@ public class EventService {
         }
         throw new RuntimeException("Event not found with id: " + id);
     }
+
+    public void deleteEvent(Long id) {
+        eventRepository.deleteById(id);
+    }
 }

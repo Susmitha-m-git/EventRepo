@@ -35,7 +35,7 @@ public class EventController {
     @PostMapping
     public ResponseEntity<Event> createEvent(@RequestBody Event event) {
         try {
-            // Allow empty titles as per test requirements
+           
             Event createdEvent = eventService.createEvent(event);
             return ResponseEntity.ok(createdEvent);
         } catch (Exception e) {
@@ -51,6 +51,16 @@ public class EventController {
             }
             Event updatedEvent = eventService.rsvpToEvent(id, attendee.trim());
             return ResponseEntity.ok(updatedEvent);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteEvent(@PathVariable Long id) {
+        try {
+            eventService.deleteEvent(id);
+            return ResponseEntity.ok().build();
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }

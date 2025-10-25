@@ -14,19 +14,19 @@ const Footer = () => {
 
 const styles = {
   footer: {
-    background: '#333',
-    color: 'white',
     textAlign: 'center',
     padding: '20px',
-    marginTop: '40px',
+    marginTop: '30px',
+    borderTop: '1px solid #e9ecef',
   },
   footerContent: {
-    maxWidth: '1200px',
+    maxWidth: '600px',
     margin: '0 auto',
   },
   footerText: {
     margin: '0',
     fontSize: '0.9em',
+    color: '#666',
   }
 };
 

@@ -2,7 +2,6 @@ import React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom"
 
-// ✅ Mock API before importing components
 jest.mock("../api", () => ({
   getEvents: jest.fn(),
   createEvent: jest.fn(),

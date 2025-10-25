@@ -25,37 +25,23 @@ function App() {
   };
 
   useEffect(() => {
-    // ✅ Safely call loadEvents even if getEvents mock breaks
-    (async () => {
-      try {
-        await loadEvents();
-      } catch (err) {
-        console.error('useEffect loadEvents failed:', err);
-      }
-    })();
+    // Keep events empty on startup
   }, []);
 
   return (
     <div className="App">
       <div className="container">
-        {/* ✅ Always render this immediately so test can find it */}
         <Home />
-
-        {/* ✅ Render other UI safely even if events not yet loaded */}
         <div className="main-content">
           <div className="left-panel">
             <EventForm onEventCreated={loadEvents} />
-            <CalendarView events={events} />
           </div>
-
           <div className="right-panel">
             <EventList events={events} onEventsUpdated={loadEvents} />
+            <CalendarView events={events} />
           </div>
         </div>
-
         <Footer />
-
-        {/* Optional: error indicator */}
         {error && (
           <p style={{ color: 'red', textAlign: 'center' }}>
             Failed to load events

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const EventCard = ({ event, onRSVP }) => {
+const EventCard = ({ event, onRSVP, onDelete }) => {
   if (!event) {
     return <div>Event data not available</div>;
   }
@@ -32,6 +32,12 @@ const EventCard = ({ event, onRSVP }) => {
     }
   };
 
+  const handleDelete = () => {
+    if (window.confirm('Are you sure you want to delete this event?')) {
+      onDelete(event.id);
+    }
+  };
+
   return (
     <div style={styles.eventCard}>
       <div style={styles.eventHeader}>
@@ -57,6 +63,9 @@ const EventCard = ({ event, onRSVP }) => {
         <button style={styles.rsvpButton} onClick={handleRSVP}>
           RSVP
         </button>
+        <button style={styles.deleteButton} onClick={handleDelete}>
+          Delete
+        </button>
         
         <div style={styles.attendeesCount}>
           <strong>Attendees:</strong> {event.attendees ? event.attendees.length : 0}
@@ -69,99 +78,96 @@ const EventCard = ({ event, onRSVP }) => {
 
 const styles = {
   eventCard: {
-    background: '#ffffff',
+    background: 'white',
     borderRadius: '12px',
-    padding: '24px',
-    margin: '16px 0',
-    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-    borderLeft: '5px solid #007bff',
-    border: '1px solid #e1e5e9',
+    padding: '25px',
+    margin: '15px 0',
+    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+    border: '1px solid #e9ecef',
+    transition: 'all 0.3s ease',
   },
   eventHeader: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
-    marginBottom: '16px',
-    flexWrap: 'wrap',
-    gap: '12px',
+    marginBottom: '15px',
   },
   eventTitle: {
-    color: '#2c3e50',
-    margin: '0',
-    fontSize: '1.5em',
-    fontWeight: '600',
-    lineHeight: '1.3',
+    background: 'linear-gradient(135deg, #667eea, #764ba2)',
+    WebkitBackgroundClip: 'text',
+    WebkitTextFillColor: 'transparent',
+    margin: '0 0 8px 0',
+    fontSize: '1.4rem',
+    fontWeight: '700',
   },
   eventDate: {
-    color: '#6c757d',
-    fontSize: '0.9em',
-    background: '#f8f9fa',
-    padding: '6px 12px',
-    borderRadius: '20px',
-    border: '1px solid #e9ecef',
-    whiteSpace: 'nowrap',
+    color: '#666',
+    fontSize: '14px',
+    fontWeight: '500',
   },
-
   eventDescription: {
-    color: '#495057',
+    color: '#555',
     lineHeight: '1.6',
     marginBottom: '20px',
-    fontSize: '1em',
+    fontSize: '15px',
   },
   eventDetails: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
     marginBottom: '20px',
-    padding: '16px',
-    background: '#f8f9fa',
+    padding: '15px',
+    background: 'linear-gradient(135deg, #f8f9fa, #e9ecef)',
     borderRadius: '8px',
-    border: '1px solid #e9ecef',
-    flexWrap: 'wrap',
-    gap: '12px',
   },
   eventOrganizer: {
-    color: '#495057',
-    fontSize: '0.95em',
+    color: '#555',
+    fontSize: '14px',
+    marginBottom: '10px',
+    fontWeight: '500',
   },
   eventLinkAnchor: {
-    color: '#007bff',
+    background: 'linear-gradient(135deg, #007bff, #6610f2)',
+    color: 'white',
     textDecoration: 'none',
-    fontWeight: '500',
+    fontWeight: '600',
     padding: '8px 16px',
-    border: '2px solid #007bff',
     borderRadius: '6px',
-    transition: 'all 0.3s ease',
-    display: 'inline-block',
+    fontSize: '14px',
+    textTransform: 'uppercase',
+    letterSpacing: '0.5px',
   },
   eventActions: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingTop: '16px',
-    borderTop: '1px solid #e9ecef',
-    flexWrap: 'wrap',
-    gap: '12px',
+    paddingTop: '20px',
+    borderTop: '2px solid #e9ecef',
   },
   rsvpButton: {
-    background: '#28a745',
+    background: 'linear-gradient(135deg, #28a745, #20c997)',
     color: 'white',
     border: 'none',
-    padding: '10px 24px',
-    borderRadius: '6px',
+    padding: '12px 24px',
+    borderRadius: '8px',
     cursor: 'pointer',
     fontWeight: '600',
-    fontSize: '0.95em',
+    fontSize: '14px',
+    textTransform: 'uppercase',
+    letterSpacing: '0.5px',
     transition: 'all 0.3s ease',
-    minWidth: '100px',
   },
   attendeesCount: {
-    color: '#6c757d',
-    fontSize: '0.9em',
-    background: '#f8f9fa',
-    padding: '8px 16px',
-    borderRadius: '20px',
-    border: '1px solid #e9ecef',
+    color: '#666',
+    fontSize: '14px',
+    fontWeight: '500',
+  },
+  deleteButton: {
+    background: 'linear-gradient(135deg, #dc3545, #c82333)',
+    color: 'white',
+    border: 'none',
+    padding: '12px 24px',
+    borderRadius: '8px',
+    cursor: 'pointer',
+    fontWeight: '600',
+    fontSize: '14px',
+    textTransform: 'uppercase',
+    letterSpacing: '0.5px',
+    transition: 'all 0.3s ease',
   }
 };
 
