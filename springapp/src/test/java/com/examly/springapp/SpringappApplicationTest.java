@@ -1,6 +1,5 @@
 package com.examly.springapp;
 
-import com.examly.springapp.configuration.CORSConfig;
 import com.examly.springapp.controller.EventController;
 import com.examly.springapp.model.Event;
 import com.examly.springapp.repository.EventRepository;
@@ -30,7 +29,7 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WebMvcTest({EventController.class, CORSConfig.class})
+@WebMvcTest({EventController.class})
 public class SpringappApplicationTest {
 
     @Autowired
